@@ -14,8 +14,7 @@ int main(void){
   clrscr();
   protector_de_pantalla();
   welcome();
-  system("pause");
-  clrscr();
+  system("cls");
 }
 
 
@@ -35,20 +34,22 @@ int protector_de_pantalla(){
 }
 
 int welcome(){
-  int password = 123;
-  window(10,10,40,12);
-  textbackground(YELLOW);
-  clrscr();
-  gotoxy(25,15);
+  int password = 123, monto, meses, rendimientoMes, rendimiento = 12;
+  gotoxy(2,2);
   printf("Bienvenido al banco, Ingrese el password\n");
-  gotoxy(25,16);
   scanf("%i", &password);
-  clrscr();
-  gotoxy(1,1);
   if (password == 123){
+    system("cls");
     printf("Password correcto\n");
     printf("Ingrese el monto de inversion que desee generar\n");
-  } else(
+    scanf("%i", &monto);
+    printf("Ingrese los meses a invertir\n");
+    scanf("%i", &meses);
+    rendimientoMes = monto / rendimiento;
+    monto = (monto + (meses * rendimientoMes));
+    printf("Tu rendimiento a %i meses son de: %i \n", meses, monto);
+    system("pause");
+  } else{
     printf("Password incorrecto\n");
-  )
+  }
 }
