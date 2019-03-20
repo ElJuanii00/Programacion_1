@@ -1,5 +1,8 @@
 /*
 Programa para almacenar el inventario y servicios que ofrese la estetica
+
+Juan Francisco Ponce Luna
+Fernando Alfaro
 */
 
 #include <stdio.h>
@@ -15,6 +18,5 @@ int main(void){
   textcolor(WHITE);
   marco(1,1,80,25);  //Marco Global
   estetica();
-  // creditos();
   return 0;
 }

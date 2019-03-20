@@ -1,7 +1,7 @@
 void marco(int x, int y, int width, int height);
 void estetica(void);
 void focus(int focus, int cond);
-void creditos(void);
+void creditos(int x, int y);
 void marcoInventario(int color, int borderColor);
 void marcoAyuda(int color, int borderColor);
 void marcoServicio(int color, int borderColor);
@@ -20,3 +20,6 @@ void servicioItem3(int color);
 void servicioItem4(int color);
 void servicioItem5(int color);
 void servicioItem6(int color);
+void ajusteItem1(int color);
+void ajusteItem2(int color);
+void ajusteItem3(int color);

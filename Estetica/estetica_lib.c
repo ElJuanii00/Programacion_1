@@ -38,8 +38,7 @@ void marco(int x, int y, int width, int height){
   }
 }
 
-void creditos(){
-  int x = 31, y = 22;
+void creditos(int x, int y){
   do {
     textcolor(RED);
     gotoxy(x,y);
@@ -48,7 +47,7 @@ void creditos(){
     gotoxy(x,y);
     cprintf("Juan Ponce");
     y--;
-    textcolor(CYAN);
+    textcolor(YELLOW);
     gotoxy(x,y);
     cprintf("EMMA PRADA");
 
@@ -63,7 +62,7 @@ void creditos(){
     y--;
     gotoxy(x,y);
     printf("               ");
-  } while(y > 2);
+  } while(y > 5);
 }
 
 void estetica(){
@@ -161,14 +160,13 @@ void estetica(){
       break;
     }
 
-
     //posFocus == 0 inventario
     //posFocus == 1 servicios
     //posFocus == 2 ganacias
     //posFocus == 3 ayuda
 
     // int secContent;
-    if (focused == 4 && posFocus == 0) {
+    if (focused == 4 && posFocus == 0) {          //Inventario
       do {
         if(tecla == ESC){
           secContent = 1;
@@ -208,7 +206,7 @@ void estetica(){
           break;
         }
       } while(focused != 0);
-    } else if(focused == 4 && posFocus == 1){
+    } else if(focused == 4 && posFocus == 1){         //Servicios
       do {
         if(tecla == ESC){
           secContent = 1;
@@ -248,7 +246,7 @@ void estetica(){
           break;
         }
       } while(focused != 0);
-    } else if(focused == 4 && posFocus == 2){
+    } else if(focused == 4 && posFocus == 2){       // Ganancias
       do {
         if(tecla == ESC){
           secContent = 1;
@@ -276,7 +274,9 @@ void estetica(){
           break;
         }
       } while(focused != 0);
-    } else if(focused == 4 && posFocus == 3){
+    } else if(focused == 4 && posFocus == 3){       //Ajustes
+      int ajustePos = 0, saveAjustesPos = 0;
+
       do {
         if(tecla == ESC){
           secContent = 1;
@@ -284,11 +284,59 @@ void estetica(){
           secContent = 0;
         }
 
+        if(saveAjustesPos == 3 && tecla == 13){
+          ajusteItem1(0);
+          ajusteItem2(0);
+          ajusteItem3(0);
+          creditos(35,25);
+          saveAjustesPos = 0;
+        }
+
+        if (saveAjustesPos == 0) {
+          gotoxy(25,5);  //Input Ajustes
+          textcolor(WHITE);
+          cprintf("Ajustes:");
+          ajusteItem1(RED);
+          ajusteItem2(15);
+          ajusteItem3(15);
+          saveAjustesPos = 1;
+          ajustePos = 0;
+        }
+
         switch (secContent) {
           case 0:
-          gotoxy(25,5);  //Output
-          textcolor(WHITE);
-          cprintf("Ajustes");
+          // ajustePos = 0;
+          switch (tecla) {
+            case 72:                // Arriba
+            if(ajustePos == 1){
+              ajusteItem2(15);
+              ajusteItem1(RED);
+              ajustePos = 0;
+              saveAjustesPos = 1;
+            } else if (ajustePos == 2){
+              ajusteItem3(15);
+              ajusteItem2(RED);
+              ajustePos = 1;
+              saveAjustesPos = 2;
+            }
+            break;
+
+            case 80:                // Abajo
+            if(ajustePos == 0){
+              ajusteItem1(15);
+              ajusteItem2(RED);
+              ajustePos = 1;
+              saveAjustesPos = 2;
+            } else if (ajustePos == 1){
+              ajusteItem2(15);
+              ajusteItem3(RED);
+              ajustePos = 2;
+              saveAjustesPos = 3;
+            }
+            break;
+          }
+
+
           tecla = getch();
           if (tecla == 0) {
             tecla = getch();
@@ -297,7 +345,10 @@ void estetica(){
           case 1:
           gotoxy(25,5);  //Output
           textcolor(BLACK);
-          cprintf("Ajustes");
+          cprintf("Ajustes:");
+          ajusteItem1(0);
+          ajusteItem2(0);
+          ajusteItem3(0);
           outputSection(focused);
           focused = 0;
           posFocus = focused;
@@ -310,8 +361,6 @@ void estetica(){
       tecla = getch();
     }
   } while(tecla != ESC);
-
-
 
   gotoxy(1,26);  //Output
   printf("");
@@ -456,6 +505,8 @@ void outputSection(int focused){
   focus(focused,1);
 }
 
+            //Inventario
+
 void inventarioItem1(int color){
   gotoxy(25,7);
   textcolor(color);
@@ -487,6 +538,8 @@ void inventarioItem6(int color){
   cprintf("Cera para el pelo seco 75$..........");
 }
 
+            //Servicio
+
 void servicioItem1(int color){
   gotoxy(25,7);
   textcolor(color);
@@ -516,4 +569,22 @@ void servicioItem6(int color){
   gotoxy(25,12);
   textcolor(color);
   cprintf("Manicura y Pedicura 75$..........");
+}
+
+              //Ajuste
+
+void ajusteItem1(int color){
+gotoxy(25,7);
+textcolor(color);
+cprintf("Color background..........\n");
+}
+void ajusteItem2(int color){
+gotoxy(25,8);
+textcolor(color);
+cprintf("Color marco..........\n");
+}
+void ajusteItem3(int color){
+gotoxy(25,9);
+textcolor(color);
+cprintf("Creditos..........\n");
 }
